@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import CommentsList from './commentsList';
 
 export default class Article extends Component {
 /*
@@ -12,18 +13,35 @@ export default class Article extends Component {
 
 */
     state = {
-        isOpen: false
+        isOpen: false,
+        areCommentsOpen: false
     }
 
     render() {
-        const { article } = this.props
-        const body = this.state.isOpen ? <section>{article.text}</section> : null
+
+        const { article } = this.props;
+        let body;
+
+        if (this.state.isOpen) {
+           body = <section>
+                      {article.text}
+                      <button onClick = {this.handleCommentsClick}>{this.state.areCommentsOpen ? `Hide` : `Show`} comments</button>
+                      { this.state.areCommentsOpen ? <CommentsList srcComments = {article.comments}  /> : null }
+                  </section>
+       };
+
         return (
             <div>
                 <h3 onClick = {this.handleClick}>{article.title}</h3>
                 {body}
             </div>
-        )
+        );
+    }
+
+    handleCommentsClick = () => {
+        this.setState({
+            areCommentsOpen: !this.state.areCommentsOpen
+        })
     }
 
     handleClick = (ev) => {
