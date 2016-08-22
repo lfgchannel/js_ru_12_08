@@ -18,21 +18,16 @@ class Article extends Component {
     }
 
     render() {
-        const { article: { text, title, comments}, isOpen, toggleOpen } = this.props
+        const { article: { text, title, comments}, isOpen, toggle } = this.props
         const body = isOpen ? <section>{text}<CommentList comments = {comments}/></section> : null
         return (
             <div>
-                <h3 onClick = {toggleOpen}>{title}</h3>
+                <h3 onClick = {toggle}>{title}</h3>
                 {body}
             </div>
         );
     }
 
-    handleCommentsClick = () => {
-        this.setState({
-            areCommentsOpen: !this.state.areCommentsOpen
-        })
-    }
 }
 
 export default Article
