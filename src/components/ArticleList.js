@@ -1,8 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import Article from './Article'
 import toggleArticle from '../decorators/toggleArticle'
 
 class ArticleList extends Component {
+
+
+    static propTypes = {
+        articles: PropTypes.arrayOf(PropTypes.object),
+        toggleArticle: PropTypes.func.isRequired,
+        openedArticleID: PropTypes.string
+    }
 
     render() {
         const { toggleArticle, openedArticleID } = this.props

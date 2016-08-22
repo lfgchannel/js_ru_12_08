@@ -14,7 +14,9 @@ class Article extends Component {
 
 */
     static propTypes = {
-        article: PropTypes.object.isRequired
+        article: PropTypes.object.isRequired,
+        isOpen: PropTypes.bool,
+        toggle: PropTypes.func
     }
 
     render() {
