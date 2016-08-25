@@ -4,6 +4,7 @@ import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 import JqueryComponent from './JqueryComponent'
 import { findDOMNode } from 'react-dom'
+import Range from './DayPicker-Range'
 
 class Container extends Component {
     static propTypes = {
@@ -22,6 +23,7 @@ class Container extends Component {
         return (
             <div>
                 <Select options = {options} value={this.state.selected} onChange = {this.handleChange} multi={true}/>
+                <Range />
                 <ArticleList articles = {this.props.articles} />
                 <JqueryComponent items = {this.props.articles} ref={this.getJQ}/>
             </div>
