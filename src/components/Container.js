@@ -3,7 +3,10 @@ import ArticleList from './ArticleList'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 import JqueryComponent from './JqueryComponent'
+import DaypickerContainer from './DaypickerContainer'
+import Counter from './Counter'
 import { findDOMNode } from 'react-dom'
+import { connect } from 'react-redux'
 
 class Container extends Component {
     static propTypes = {
@@ -21,8 +24,10 @@ class Container extends Component {
         }))
         return (
             <div>
-                <Select options = {options} value={this.state.selected} onChange = {this.handleChange} multi={true}/>
+                <Counter />
                 <ArticleList articles = {this.props.articles} />
+                <Select options = {options} value={this.state.selected} onChange = {this.handleChange} multi={true}/>
+                <DaypickerContainer />
                 <JqueryComponent items = {this.props.articles} ref={this.getJQ}/>
             </div>
         )
@@ -40,4 +45,8 @@ class Container extends Component {
     }
 }
 
-export default Container
+export default connect((state) => {
+    const { articles } = state
+    return { articles }
+}
+)(Container)
