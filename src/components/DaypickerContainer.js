@@ -26,9 +26,9 @@ class Daypicker extends Component {
         )
     }
 
-    handleSelect = day => DateUtils.isDayInRange(day, this.state)
+    handleSelect = day => DateUtils.isDayInRange(day, this.props.range)
     getRangeTitle() {
-        const { from, to } = this.state
+        const { from, to } = this.props.range
         const fromText = from && `Start date: ${from.toDateString()}`
         const toText = to && `Finish date: ${to.toDateString()}`
 
@@ -36,8 +36,9 @@ class Daypicker extends Component {
     }
 
     handleDayClick = (e, day) => {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range)
+        const range = DateUtils.addDayToRange(day, this.props.range);
+        const { filterRange } = this.props
+        filterRange(range)
     }
 }
 
