@@ -5,17 +5,14 @@ const defaultState = {
         from: null,
         to: null
     },
-    selected: null
+    selected: []
 }
 
 export default function filterReducer(prevState = defaultState, action) {
 
     const { type, payload } = action
 
-    if ( type == SELECTED ) return {...prevState, ...payload}
-    else if ( type === RANGE ) {
-        return {...prevState, ...payload}
-    }
+    if ( type == SELECTED || type == RANGE ) return {...prevState, ...payload}
 
     return prevState
 

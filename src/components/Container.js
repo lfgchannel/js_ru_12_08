@@ -22,7 +22,7 @@ class Container extends Component {
         return (
             <div>
                 <Counter />
-                <ArticleList articles = {this.props.articles} />
+                <ArticleList articles = {this.filterArticles()} />
                 <Select options = {options} value={this.props.filter.selected} onChange = {this.handleSelectChange} multi={true}/>
                 <DaypickerContainer range = {this.props.filter.range} filterRange={this.props.filterRange} />
                 <JqueryComponent items = {this.props.articles} ref={this.getJQ}/>
@@ -38,6 +38,31 @@ class Container extends Component {
     handleSelectChange = (selected) => {
         const { filterSelect } = this.props
         filterSelect(selected)
+    }
+
+    filterArticles = () => {
+        const { articles, filter } = this.props,
+              { range, selected } = filter,
+              { from, to } = range
+
+        return articles.filter(item => {
+            const itemDate = Date.parse(item.date),
+                  fromDate = Date.parse(range.from),
+                  toDate = Date.parse(range.to)
+
+            if ( selected.length > 0 && from && to ) {
+                return selected.some(sel => {
+                    return ( sel.value == item.id ) && ( itemDate > fromDate && itemDate < toDate )
+                })
+            } else if ( from && to ) {
+                return itemDate > fromDate && itemDate < toDate
+            } else if ( selected.length > 0 ) {
+                return selected.some(sel => sel.value == item.id)
+            }
+
+            return true
+        })
+
     }
 }
 
