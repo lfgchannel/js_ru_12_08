@@ -1,8 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { addcomment } from '../AC/addcomment'
 
 class NewCommentForm extends Component {
+
+    static propTypes = {
+        belongsToId: PropTypes.string.isRequired
+    }
 
     state = {
         text: ''
@@ -34,7 +38,7 @@ class NewCommentForm extends Component {
         } else {
 
             alert('Comments should be having at least one character')
-            
+
         }
 
     }
