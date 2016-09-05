@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import CommentCount from './CommentCount'
+import NewCommentForm from './NewCommentForm'
 
 class CommentList extends Component {
     static propTypes = {
@@ -25,7 +26,7 @@ class CommentList extends Component {
 */
 
     render() {
-        const { comments, isOpen, toggleOpen } = this.props
+        const { comments, isOpen, toggleOpen, belongsToId } = this.props
 
         if (!comments || !comments.length) return <p>No comments yet</p>
         const toggleButton = <a href="#" onClick = {toggleOpen}>{isOpen ? 'hide' : 'show'} comments.
@@ -40,6 +41,7 @@ class CommentList extends Component {
             <div>
                 {toggleButton}
                 <ul>{commentItems}</ul>
+                <NewCommentForm belongsToId={belongsToId}/>
             </div>
         )
     }
