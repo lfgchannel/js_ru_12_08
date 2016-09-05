@@ -9,9 +9,9 @@ class Filters extends Component {
     render() {
         const { articles, filters, changeDateFilter } = this.props
         const options = articles.map(article => ({
-            label: article.title,
-            value: article.id
-        }))
+            label: article.get('title'),
+            value: article.get('id')
+        })).toArray()
 
         return (
             <div>
