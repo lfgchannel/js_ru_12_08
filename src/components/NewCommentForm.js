@@ -15,15 +15,27 @@ class NewCommentForm extends Component {
     }
 
     handleSubmit = (event) => {
+
         event.preventDefault()
 
         const { addcomment, userName, belongsToId } = this.props
+        const { text } = this.state
 
-        addcomment({
-            text: this.state.text,
-            user: userName,
-            belongsToId
-        })
+        if ( text ) {
+            addcomment({
+                text,
+                user: userName,
+                belongsToId
+            })
+
+            this.setState({
+                text: ''
+            })
+        } else {
+
+            alert('Comments should be having at least one character')
+            
+        }
 
     }
 
@@ -37,7 +49,7 @@ class NewCommentForm extends Component {
                     placeholder="Add a comment..."
                     cols="40"
                     rows="10"
-                    value={this.state.input}
+                    value={this.state.text}
                     onChange={this.handleChange} />
                 <input
                     type="submit"

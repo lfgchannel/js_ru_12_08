@@ -12,10 +12,11 @@ const immutableComments = new List(normalizedComments.map(comment => new Comment
 
 export default (comments = immutableComments, action) => {
     const { type, payload, response, error } = action
- 
+
     switch (type) {
         case ADD_COMMENT:
-            return comments.push(new CommentModel(payload))
+            const { text, user, id } = payload // или delete payload.belongsToId ?
+            return comments.push(new CommentModel({ text, user, id }))
     }
 
     return comments

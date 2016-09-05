@@ -4,8 +4,6 @@ export default store => next => action => {
 
     const { payload, type } = action
 
-    console.log(action)
-
     switch(type) {
         case ADD_COMMENT:
             const id = store.getState().comments.size

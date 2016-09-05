@@ -28,7 +28,12 @@ class CommentList extends Component {
     render() {
         const { comments, isOpen, toggleOpen, belongsToId } = this.props
 
-        if (!comments || !comments.length) return <p>No comments yet</p>
+        if (!comments || !comments.length) return (
+            <div>
+                <p>Be the first one to write a comment</p>
+                <NewCommentForm belongsToId={belongsToId}/>
+            </div>
+        )
         const toggleButton = <a href="#" onClick = {toggleOpen}>{isOpen ? 'hide' : 'show'} comments.
             <CommentCount count = {comments.length}/>
         </a>
