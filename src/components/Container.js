@@ -5,13 +5,14 @@ import Counter from './Counter'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 import Filters from './Filters'
-import { loadAllArticles } from '../AC/articles'
+import { loadAllArticles, loadArticlesWithThunk } from '../AC/articles'
 
 class Container extends Component {
 
     componentDidMount() {
-        const { loaded, loading, loadAllArticles } = this.props
-        if (!loaded && !loading) loadAllArticles()
+        const { loaded, loading, loadAllArticles, loadArticlesWithThunk } = this.props
+       // if (!loaded && !loading) loadAllArticles()
+        if (!loaded && !loading) loadArticlesWithThunk()
     }
 
     render() {
@@ -48,4 +49,4 @@ export default connect((state) => {
     const loaded = articles.get('loaded')
 
     return { articles: filteredArticles, loading, loaded }
-}, { loadAllArticles })(Container)
+}, { loadAllArticles, loadArticlesWithThunk })(Container)
