@@ -1,8 +1,9 @@
-import { DELETE_ARTICLE, ADD_COMMENT } from '../constants'
+import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, START, SUCCESS, FAIL } from '../constants'
 import { normalizedArticles } from '../fixtures'
 import { Record, List, OrderedMap, fromJS } from 'immutable'
+import { arrayToMap } from '../utils'
 
-const Article = new Record({
+export const Article = new Record({
     id: '',
     date: null,
     title: '',
@@ -10,9 +11,7 @@ const Article = new Record({
     comments: []
 })
 
-const articlesMap = normalizedArticles.reduce((acc, article) => acc.set(article.id, new Article(article)), new OrderedMap({}))
-
-export default (articles = articlesMap, action) => {
+export default (articles = new OrderedMap({}), action) => {
     const { type, payload, response, error } = action
 
     switch (type) {
@@ -21,6 +20,9 @@ export default (articles = articlesMap, action) => {
 
         case ADD_COMMENT:
             return articles.updateIn([payload.articleId, 'comments'], comments => comments.concat(action.randomId))
+
+        case LOAD_ALL_ARTICLES + SUCCESS:
+            return articles.merge(arrayToMap(response, Article))
     }
 
     return articles

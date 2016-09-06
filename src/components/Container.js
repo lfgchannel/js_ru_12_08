@@ -5,8 +5,14 @@ import Counter from './Counter'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 import Filters from './Filters'
+import { loadAllArticles } from '../AC/articles'
 
 class Container extends Component {
+
+    componentDidMount() {
+        this.props.loadAllArticles()
+    }
+
     render() {
         return (
             <div>
@@ -36,4 +42,4 @@ export default connect((state) => {
             return (!dates.from || dates.from < publisingDate) && (!dates.to || dates.to > publisingDate)
         })
     return { articles: filteredArticles }
-})(Container)
+}, { loadAllArticles })(Container)

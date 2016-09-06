@@ -6,7 +6,7 @@ import './articleList.css'
 
 class ArticleList extends Component {
     static propTypes = {
-        articles: PropTypes.array.isRequired,
+        articles: PropTypes.object.isRequired,
         //from accordion decorator
         toggleOpenItem: PropTypes.func.isRequired,
         isOpenItem: PropTypes.func.isRequired
