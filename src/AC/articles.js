@@ -1,4 +1,4 @@
-import { DELETE_ARTICLE, LOAD_ALL_ARTICLES, START, SUCCESS, FAIL } from '../constants'
+import { LOAD_ARTICLE_BY_ID, DELETE_ARTICLE, LOAD_ALL_ARTICLES, START, SUCCESS, FAIL } from '../constants'
 import $ from 'jquery'
 
 export function deleteArticle(id) {
@@ -12,6 +12,14 @@ export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
         callAPI: '/api/article'
+    }
+}
+
+export function loadArticleById(id) {
+    return {
+        type: LOAD_ARTICLE_BY_ID,
+        payload: { id },
+        callAPI: `/api/article/${id}`
     }
 }
 
