@@ -5,10 +5,6 @@ class JqueryComponent extends Component {
 
     };
 
-    componentDidMount() {
-        console.log('---', this.refs.container)
-    }
-
     render() {
         return (
             <div ref="container" >Hello world</div>

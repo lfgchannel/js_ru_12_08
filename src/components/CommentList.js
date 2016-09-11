@@ -3,6 +3,8 @@ import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import CommentCount from './CommentCount'
 import NewCommentForm from './NewCommentForm'
+import { loadComments } from '../AC/comments'
+import { connect } from 'react-redux'
 
 class CommentList extends Component {
     static propTypes = {
@@ -11,30 +13,29 @@ class CommentList extends Component {
         toggleOpen: PropTypes.func
     }
 
-/*
-    componentDidMount() {
-        console.log('---', 'mounted')
+    componentWillReceiveProps({ isOpen, article: { id, commentsLoaded }, loadComments }) {
+        if ( commentsLoaded ) return null
+        if (isOpen && !this.props.isOpen) loadComments(id)
     }
-
-    componentWillUnmount() {
-        console.log('---', 'unmounting')
-    }
-
-    componentWillReceiveProps() {
-        console.log('---', 'updating')
-    }
-*/
 
     render() {
         const { article, isOpen, toggleOpen } = this.props
-        const comments = article.comments
+        const { comments, commentsLoading } = article
 
-        if (!comments || !comments.length) return <div>No comments yet <NewCommentForm articleId = {article.id}/></div>
         const toggleButton = <a href="#" onClick = {toggleOpen}>{isOpen ? 'hide' : 'show'} comments.
             <CommentCount count = {comments.length}/>
         </a>
 
-        if (!isOpen) return <div>{toggleButton}</div>
+        if ( !isOpen ) return <div>{toggleButton}</div>
+
+        if (!comments || !comments.length) return (
+            <div>
+                No comments yet
+                <NewCommentForm articleId = {article.id}/>
+            </div>
+        )
+
+        if ( commentsLoading ) return <div>{toggleButton}<h1>Loading...</h1></div>
 
         const commentItems = comments.map(commentId => <li key = {commentId}><Comment commentId = {commentId} /></li>)
 
@@ -48,4 +49,4 @@ class CommentList extends Component {
     }
 }
 
-export default toggleOpen(CommentList)
+export default connect(null, { loadComments })(toggleOpen(CommentList))

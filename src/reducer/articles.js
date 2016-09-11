@@ -1,4 +1,4 @@
-import { LOAD_ARTICLE_BY_ID, DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, START, SUCCESS, FAIL } from '../constants'
+import { LOAD_ARTICLE_BY_ID, DELETE_ARTICLE, LOAD_COMMENTS, ADD_COMMENT, LOAD_ALL_ARTICLES, START, SUCCESS, FAIL } from '../constants'
 import { normalizedArticles } from '../fixtures'
 import { Record, List, Map, OrderedMap, fromJS } from 'immutable'
 import { arrayToMap } from '../utils'
@@ -9,6 +9,8 @@ export const Article = new Record({
     title: '',
     text: '',
     loading: false,
+    commentsLoaded: false,
+    commentsLoading: false,
     comments: []
 })
 
@@ -46,6 +48,14 @@ export default (state = defaultState, action) => {
         case LOAD_ARTICLE_BY_ID + SUCCESS:
             return state
                 .setIn(['entities', payload.id], new Article(response))
+
+        case LOAD_COMMENTS + START:
+            return state.setIn(['entities', payload.articleId, 'commentsLoading'], true)
+
+        case LOAD_COMMENTS + SUCCESS:
+            return state
+                .setIn(['entities', payload.articleId, 'commentsLoading'], false)
+                .setIn(['entities', payload.articleId, 'commentsLoaded'], true)
     }
 
     return state
