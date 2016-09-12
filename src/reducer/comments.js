@@ -32,9 +32,8 @@ export default (state = defaultState, action) => {
         case LOAD_COMMENTS_PAGE + SUCCESS:
             const { records } = response
             const { page } = payload
-            console.log(  )
             return state
-                .setIn(['pagination', 'entities', page], new List( records.map(record => new CommentModel(record)) ))
+                .setIn(['pagination', 'entities', page], arrayToMap(records, CommentModel))
     }
 
     return state

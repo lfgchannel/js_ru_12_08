@@ -25,7 +25,7 @@ Comment.propTypes = {
 
 export default connect(({ comments }, { page, commentId }) => {
     if ( page ) return {
-        comment: comments.getIn(['pagination', 'entities', page]).get(commentId)
+        comment: comments.getIn(['pagination', 'entities', page, commentId])
     }
     return {
         comment: comments.getIn(['entities', commentId])

@@ -34,10 +34,7 @@ class CommentPageContainer extends Component {
             <div>...Loading</div>
         )
 
-        const commentItems = comments.map((comment, i) =>
-            <li key={comment.id}>
-                <Comment page={page} commentId={i} />
-            </li>)
+        const commentItems = comments.map(comment => <Comment page={page} commentId={comment.id} />)
 
         return (
             <div>{commentItems}</div>
