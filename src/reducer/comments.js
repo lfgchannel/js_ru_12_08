@@ -1,4 +1,4 @@
-import { ADD_COMMENT, LOAD_COMMENTS, START, SUCCESS } from '../constants'
+import { ADD_COMMENT, LOAD_COMMENTS, START, SUCCESS, LOAD_ALL_COMMENTS } from '../constants'
 import { normalizedComments } from '../fixtures'
 import { Record, List, OrderedMap, Map } from 'immutable'
 import { arrayToMap } from '../utils'
@@ -23,6 +23,10 @@ export default (state = defaultState, action) => {
 
         case LOAD_COMMENTS + SUCCESS:
             return state.update('entities', entities => entities.merge(arrayToMap(response, CommentModel)))
+
+        case LOAD_ALL_COMMENTS + SUCCESS:
+            const totalPages  = Math.ceil(response.total/5)
+            return state.set('totalPagesCount', totalPages )
     }
 
     return state

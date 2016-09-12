@@ -17,6 +17,7 @@ class Root extends Component {
                         <li><Link to="/articles">articles</Link></li>
                         <li><Link to="/filters">filters</Link></li>
                         <li><Link to="/counter">counter</Link></li>
+                        <li><Link to="/comments">comments</Link></li>
                     </ul>
                     {this.props.children}
                 </div>
