@@ -1,6 +1,7 @@
-import { ADD_COMMENT } from '../constants'
+import { ADD_COMMENT, LOAD_COMMENTS, START, SUCCESS } from '../constants'
 import { normalizedComments } from '../fixtures'
-import { Record, List } from 'immutable'
+import { Record, List, OrderedMap, Map } from 'immutable'
+import { arrayToMap } from '../utils'
 
 const CommentModel = new Record({
     id: null,
@@ -8,15 +9,21 @@ const CommentModel = new Record({
     text: ''
 })
 
-const immutableComments = new List(normalizedComments.map(comment => new CommentModel(comment)))
+const defaultState = new Map({
+    entities: new OrderedMap({})
+})
 
-export default (comments = immutableComments, action) => {
+export default (state = defaultState, action) => {
     const { type, payload, response, error } = action
 
     switch (type) {
         case ADD_COMMENT:
-            return comments.push({...payload.comment, id: action.randomId})
+//            return comments.push({...payload.comment, id: action.randomId})
+            return state.update('entities', entities => entities.set(action.randomId, new CommentModel(payload.comment)))
+
+        case LOAD_COMMENTS + SUCCESS:
+            return state.update('entities', entities => entities.merge(arrayToMap(response, CommentModel)))
     }
 
-    return comments
+    return state
 }

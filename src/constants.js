@@ -8,6 +8,7 @@ export const LOAD_ARTICLE_BY_ID = 'LOAD_ARTICLE_BY_ID'
 
 
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const LOAD_COMMENTS = 'LOAD_COMMENTS'
 
 export const START = '_START'
 export const SUCCESS = '_SUCCESS'
