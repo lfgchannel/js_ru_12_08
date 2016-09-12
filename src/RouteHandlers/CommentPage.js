@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import ArticleContainer from '../components/ArticleContainer'
+import CommentPageContainer from '../components/CommentPageContainer'
 
 
 class CommentPage extends Component {
@@ -8,10 +8,10 @@ class CommentPage extends Component {
     };
 
     render() {
-        // const { id } = this.props.params
+        const { page } = this.props.params
         return (
             <div>
-                {/* <ArticleContainer articleId = {id} /> */}
+                <CommentPageContainer page = { page }/>
             </div>
         )
     }

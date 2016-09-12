@@ -13,7 +13,7 @@ function Comment(props) {
 }
 
 function decrateUser(user) {
-    return <strong>by {user}</strong>
+    return <strong> by {user}</strong>
 }
 
 Comment.propTypes = {
@@ -23,8 +23,11 @@ Comment.propTypes = {
     })
 }
 
-export default connect(({ comments }, props) => {
+export default connect(({ comments }, { page, commentId }) => {
+    if ( page ) return {
+        comment: comments.getIn(['pagination', 'entities', page]).get(commentId)
+    }
     return {
-        comment: comments.getIn(['entities', props.commentId])
+        comment: comments.getIn(['entities', commentId])
     }
 })(Comment)

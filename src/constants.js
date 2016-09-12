@@ -15,3 +15,6 @@ export const SUCCESS = '_SUCCESS'
 export const FAIL = '_FAIL'
 
 export const LOAD_ALL_COMMENTS = 'LOAD_ALL_COMMENTS'
+export const LOAD_COMMENTS_PAGE = 'LOAD_COMMENTS_PAGE'
+
+export const COMMENTS_PER_PAGE_AMT = 5

@@ -6,9 +6,11 @@ import { Link } from 'react-router'
 
 class AllComments extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
 
-        const { loadAllComments } = this.props
+        const { loadAllComments, totalPagesCount } = this.props
+
+        if ( totalPagesCount ) return null
 
         loadAllComments()
 
@@ -29,7 +31,7 @@ class AllComments extends Component {
 
         const commentPages = pager.map(i =>
             <li key={'pager_comments_Page'+i}>
-                <Link to = {`/comment/${i}`}>{`Page ${i}`}</Link>
+                <Link to = {`/comments/${i}`}>{`Page ${i}`}</Link>
             </li>)
 
         return (
@@ -45,7 +47,7 @@ class AllComments extends Component {
 
 export default connect(state => {
 
-    const totalPagesCount = state.comments.get('totalPagesCount')
+    const totalPagesCount = state.comments.getIn(['pagination', 'totalPagesCount'])
 
     return { totalPagesCount }
 
