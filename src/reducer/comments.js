@@ -33,6 +33,7 @@ export default (state = defaultState, action) => {
             const { records } = response
             const { page } = payload
             return state
+                //Хорошо, но я бы предпочел здесь хранить только id комментов, а сами комменты в entities
                 .setIn(['pagination', 'entities', page], arrayToMap(records, CommentModel))
     }
 
