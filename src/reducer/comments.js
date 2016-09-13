@@ -34,6 +34,8 @@ export default (state = defaultState, action) => {
             const { page } = payload
             console.log(  )
             return state
+                //да, это решение мне больше нравиться - тебе, ведь не нужен доступ по id, только список.
+                //нет смысла перегонять из одной структуры в другую
                 .setIn(['pagination', 'entities', page], new List( records.map(record => new CommentModel(record)) ))
     }
 
