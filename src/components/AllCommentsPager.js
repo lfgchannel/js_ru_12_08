@@ -28,7 +28,7 @@ class AllComments extends Component {
             pager.push(i+1)
             i++
         }
-
+        //'pager_comments_Page' в ключе явно лишнее. Это один из редких случаев, когда ключ не решает ничего; Можно просто оставить индекс
         const commentPages = pager.map(i =>
             <li key={'pager_comments_Page'+i}>
                 <Link to = {`/comments/${i}`}>{`Page ${i}`}</Link>
